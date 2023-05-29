@@ -9,6 +9,7 @@ import React from 'react';
 import { LoginPageView } from './src/views/LoginPageView';
 import { RecoverPassView } from './src/views/RecoverPassView';
 import { MainPageView } from './src/views/MainPageView';
+import { Navigation } from './src/Navigation';
 
 
 
@@ -18,7 +19,8 @@ function App(): JSX.Element {
   return (
         // <LoginPageView/>
         // <RecoverPassView/>
-        <MainPageView/>
+        // <MainPageView/>
+        <Navigation />
   );
 }
 

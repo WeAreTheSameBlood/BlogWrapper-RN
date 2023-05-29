@@ -10,29 +10,23 @@ import {
     SafeAreaView
 } from "react-native"
 
-export const LoginPageView = () => {
+export const LoginPageView = ({ navigation }) => {
 
-    const imgBackgrd = {uri: 'https://images.pexels.com/photos/1423600/pexels-photo-1423600.jpeg?cs=srgb&dl=pexels-johannes-plenio-1423600.jpg&fm=jpg'}
+    const imgBackgrd = {uri: 'https://images.unsplash.com/photo-1502252430442-aac78f397426?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'}
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
     const handlerLogin = () => {
-        // Login and password processing
-        Alert.alert("Login info", 
-        "\nLogin:" + username + "\nPassword:" + password)
+        navigation.navigate("Main");
     }
 
-    const handlerPasswordOptions = () => {
-        // Recover pass processing
-        Alert.alert("Recover pass info", 
-        "Go to the password recovery page")
+    const handlerRecoverPassBtn = () => {
+        navigation.navigate("Recover Password");
     }
 
     const handlerSingUp = () => {
-        // Sing Up processing
-        Alert.alert("To Sing Up", 
-        "Go to registration page")
+        navigation.navigate("Registration");
     }
 
     return(
@@ -46,7 +40,7 @@ export const LoginPageView = () => {
 
                     <TextInput
                     style={styles.textInputField}
-                    placeholder="login"
+                    placeholder="username"
                     value={username}
                     onChangeText={setUsername}
                     keyboardType='default'
@@ -64,7 +58,7 @@ export const LoginPageView = () => {
                         keyboardType='default'
                         />
 
-                        <TouchableOpacity onPress={handlerPasswordOptions}>
+                        <TouchableOpacity onPress={handlerRecoverPassBtn}>
                             <Text style={styles.icon}>?</Text>
                         </TouchableOpacity>
 
@@ -79,7 +73,7 @@ export const LoginPageView = () => {
                     </TouchableOpacity> 
 
                     <TouchableOpacity 
-                    style={styles.asLoginBtn} 
+                    style={[styles.asLoginBtn]} 
                     onPress={handlerSingUp}
                     activeOpacity={3/4}
                     >
@@ -98,7 +92,7 @@ const styles = StyleSheet.create({
     safeView: {
         flex: 1
     },
-      imgBackgrd: {
+    imgBackgrd: { 
         resizeMode: 'cover',
         height: '100%',
         width: '100%'
@@ -133,7 +127,7 @@ const styles = StyleSheet.create({
     },
     icon: {
         fontSize: 15,
-        color: 'green',
+        color: '#68876a',
         marginLeft: 5,
       },
   });

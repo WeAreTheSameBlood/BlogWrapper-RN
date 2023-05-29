@@ -53,12 +53,6 @@ export const RecoverPassView = () => {
         "\nPassword was reset, \ncheck your email \nor phone message")
     }
 
-    const handlerBackBtn = () => {
-        // Back btn processing
-        Alert.alert("Back btn was press", 
-        "You just clicked on the Back button")
-    }
-
     return(
         <ImageBackground
         source={imgBackgrd}
@@ -90,16 +84,6 @@ export const RecoverPassView = () => {
                         </TouchableOpacity> 
 
                     </View>
-
-                    <View style={styles.backForm}>
-                        <TouchableOpacity 
-                        style={styles.backBtn} 
-                        onPress={handlerBackBtn}
-                        activeOpacity={3/4}
-                        >
-                            <Text style={styles.textResetPassBtn}>Back</Text>
-                        </TouchableOpacity> 
-                    </View>
                     
                 </View>
 
@@ -121,19 +105,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flex: 1
-    },
-    backForm: {
-        position: 'absolute',
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start',
-    },
-    backBtn: {
-        width: 60,
-        height: 40,
-        justifyContent: 'center',
-        backgroundColor: '#68876a',
-        borderRadius: 10,
-        margin: 5
     },
     textInputField: {
         width: 200,

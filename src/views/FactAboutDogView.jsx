@@ -11,7 +11,7 @@ export const FactAboutDogView = ({fact, onRemove}) => {
 
     return(
         <TouchableOpacity 
-        activeOpacity={1/3}
+        activeOpacity={2/3}
         onPress={press}
         onLongPress={() => onRemove(fact.id)}
         >
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         margin: 5,
         backgroundColor: 'white',
-        opacity: 3/4
+        opacity: 4/5
     },
     titleText: {
         fontSize: 16,

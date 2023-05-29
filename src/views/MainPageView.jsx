@@ -11,11 +11,11 @@ import {
     SafeAreaView,
     FlatList
 } from "react-native"
-import { HStack, Spacer, VStack } from "./auxiliary";
+import { HStack, Spacer, VStack} from "./auxiliary"
 import { FactAboutDogView } from "./FactAboutDogView";
 
 export const MainPageView =() => {
-    const imgBackgrd = {uri: 'https://images.pexels.com/photos/1179229/pexels-photo-1179229.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'}
+    const imgBackgrd = {uri: 'https://images.unsplash.com/photo-1508193638397-1c4234db14d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80'}
     const imgAvatar = {uri: 'https://upload.wikimedia.org/wikipedia/ru/thumb/9/94/Гигачад.jpg/640px-Гигачад.jpg'}
 
     const [name, setName] = useState("Hybchenko A.O.")
@@ -41,6 +41,8 @@ export const MainPageView =() => {
     ])
 
     const removeFact = id => {
+        Alert.alert("Deleted gods fact",
+        "Fact: \"" + dogFacts[id-1].title + "\"was deleted!")
         setDogFacts(prev => prev.filter(fact => fact.id !== id))
       }
     
@@ -145,6 +147,6 @@ const styles = StyleSheet.create({
         padding: 5,
         margin: 5,
         borderRadius: 10,
-        opacity: 5/6
+        opacity: 4/5
     }
   });
