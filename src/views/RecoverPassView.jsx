@@ -124,7 +124,6 @@ const styles = StyleSheet.create({
     },
     backForm: {
         position: 'absolute',
-        
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
     },

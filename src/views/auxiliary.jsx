@@ -17,12 +17,25 @@ export const VStack = ({ children }) => {
     )
   };
 
+  export const Spacer = () => {
+    return(
+      <View style={{flex: 1}}>
+      </View>
+    )
+  }
+
 const styles = StyleSheet.create({
   hStack: {
-    // flexDirection: 'row',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   vStack: {
-    // flexDirection: 'column',
+    flexDirection: 'column',
+  },
+  image: {
+    width: 200,
+    height: 200,
+    resizeMode: 'cover',
   },
 });
 

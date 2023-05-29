@@ -10,7 +10,7 @@ import {
     SafeAreaView
 } from "react-native"
 
-const LoginPageView = () => {
+export const LoginPageView = () => {
 
     const imgBackgrd = {uri: 'https://images.pexels.com/photos/1423600/pexels-photo-1423600.jpeg?cs=srgb&dl=pexels-johannes-plenio-1423600.jpg&fm=jpg'}
 
@@ -137,5 +137,3 @@ const styles = StyleSheet.create({
         marginLeft: 5,
       },
   });
-
-export default LoginPageView;
