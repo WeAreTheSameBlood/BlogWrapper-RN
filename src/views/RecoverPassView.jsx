@@ -9,10 +9,11 @@ import {
     ImageBackground, 
     SafeAreaView
 } from "react-native"
+import { GeneralStyles } from "../styles/GeneralStyles";
+
+const imgBackgrd = {uri: 'https://images.unsplash.com/photo-1503435980610-a51f3ddfee50?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80'}
 
 export const RecoverPassView = () => {
-
-    const imgBackgrd = {uri: 'https://images.unsplash.com/photo-1503435980610-a51f3ddfee50?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80'}
 
     const [emailOrPhone, setEmailOrPhone] = useState("");
 
@@ -47,6 +48,26 @@ export const RecoverPassView = () => {
         }
     }, [isBtnPress, cooldownBtn])
 
+    useEffect(() => {
+        let timeout = null;
+      
+        if (isBtnPress) {
+          timeout = setTimeout(() => {
+            setCooldownBtn(prevTime => prevTime - 1);
+          }, 1000);
+        }
+      
+        if (cooldownBtn === 0) {
+          setIsBrnPress(false);
+          clearTimeout(timeout);
+        }
+      
+        return () => {
+          clearTimeout(timeout);
+        };
+      }, [isBtnPress, cooldownBtn]);
+      
+
     const handlerResetPassword = () => {
         // Reset pass processing
         Alert.alert("Reset password", 
@@ -56,9 +77,9 @@ export const RecoverPassView = () => {
     return(
         <ImageBackground
         source={imgBackgrd}
-        style={styles.imgBackgrd}
+        style={GeneralStyles.imgBackgrd}
         >
-             <SafeAreaView style={styles.safeView}>
+             <SafeAreaView style={GeneralStyles.safeArea}>
                 <View style={{flex:1}}>
 
                     <View style={styles.mainForm} >
@@ -72,12 +93,12 @@ export const RecoverPassView = () => {
                         />
 
                         <TouchableOpacity 
-                        style={styles.asLoginBtn} 
+                        style={GeneralStyles.generalBtn} 
                         onPress={handlerBtnPress}
                         activeOpacity={3/4}
                         disabled={isBtnPress}
                         >
-                            <Text style={styles.textResetPassBtn}>
+                            <Text style={GeneralStyles.textInGeneralBtn}>
                                 {isBtnPress ? `Wait ${cooldownBtn} sec` : 'Reset password'}
                             </Text>
 
@@ -93,14 +114,6 @@ export const RecoverPassView = () => {
 }
 
 const styles = StyleSheet.create({
-    safeView: {
-        flex: 1
-    },
-    imgBackgrd: {
-        resizeMode: 'cover',
-        height: '100%',
-        width: '100%'
-    },
     mainForm: {
         justifyContent: 'center',
         alignItems: 'center',
@@ -115,18 +128,5 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         padding: 10,
         margin: 3 
-    },
-    asLoginBtn: {
-        width: 200,
-        backgroundColor: '#68876a',
-        justifyContent: 'center',
-        borderRadius: 10,
-        padding: 7,
-        margin: 5
-    },
-    textResetPassBtn: {
-        textAlign: 'center',
-        fontSize: 18,
-        color: 'white'
     },
   });

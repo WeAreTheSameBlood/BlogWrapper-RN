@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { 
     View, 
     Text,
@@ -13,10 +13,12 @@ import {
 } from "react-native"
 import { HStack, Spacer, VStack} from "./auxiliary"
 import { FactAboutDogView } from "./FactAboutDogView";
+import { GeneralStyles } from "../styles/GeneralStyles";
+
+const imgBackgrd = {uri: 'https://images.unsplash.com/photo-1508193638397-1c4234db14d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80'}
+const imgAvatar = {uri: 'https://upload.wikimedia.org/wikipedia/ru/thumb/9/94/Гигачад.jpg/640px-Гигачад.jpg'}
 
 export const MainPageView =() => {
-    const imgBackgrd = {uri: 'https://images.unsplash.com/photo-1508193638397-1c4234db14d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80'}
-    const imgAvatar = {uri: 'https://upload.wikimedia.org/wikipedia/ru/thumb/9/94/Гигачад.jpg/640px-Гигачад.jpg'}
 
     const [name, setName] = useState("Hybchenko A.O.")
     const [dateOFBirth, setDateOFBirth] = useState("15.06.1998")
@@ -45,13 +47,23 @@ export const MainPageView =() => {
         "Fact: \"" + dogFacts[id-1].title + "\"was deleted!")
         setDogFacts(prev => prev.filter(fact => fact.id !== id))
       }
+
+    const keyExtractor = useCallback(
+        (fact) => fact.id.toString(),
+        []
+        );
+
+    const renderItem = useCallback(
+        ({item}) => <FactAboutDogView fact={item} onRemove={removeFact}/>,
+        []
+    );
     
     return(
         <ImageBackground
         source={imgBackgrd}
-        style={styles.imgBackgrd}
+        style={GeneralStyles.imgBackgrd}
         >
-             <SafeAreaView style={styles.safeView}>
+             <SafeAreaView style={GeneralStyles.safeArea}>
 
                 <VStack>
 
@@ -99,15 +111,15 @@ export const MainPageView =() => {
                     </HStack>
 
                     <FlatList
-                    keyExtractor={fact => fact.id.toString()}
+                    // add optimization param: getItemLayout , onEndReached , onEndReachedThreshold
+                    keyExtractor={keyExtractor}
                     data={dogFacts}
-                    renderItem={({item}) => <FactAboutDogView fact={item} onRemove={removeFact}/>}
+                    renderItem={renderItem}
                     />
 
                 <VStack>
                     
                 </VStack>
-                
 
              </SafeAreaView>
         </ImageBackground>
@@ -115,28 +127,20 @@ export const MainPageView =() => {
 }
 
 const styles = StyleSheet.create({
-    safeView: {
-        flex: 1
-    },
-    imgBackgrd: {
-        resizeMode: 'cover',
-        height: '100%',
-        width: '100%'
-    },
     image: {
         width: 70,
         height: 70,
         resizeMode: 'cover',
         borderRadius: 30,
         margin: 5
-      },
+    },
     textHeader: {
         textAlign: 'left',
         padding: 5,
         fontSize: 24,
         fontWeight: 'bold',
         color: 'white'
-      }, 
+    }, 
     textInSections: {
         flex: 1,
         textAlign: 'left',

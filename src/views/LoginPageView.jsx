@@ -4,18 +4,31 @@ import {
     Text, 
     StyleSheet, 
     TextInput, 
-    Alert, 
+    Button,
     TouchableOpacity, 
     ImageBackground, 
     SafeAreaView
 } from "react-native"
+import { GeneralStyles } from "../styles/GeneralStyles";
+
+const imgBackgrd = {uri: 'https://images.unsplash.com/photo-1502252430442-aac78f397426?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'}
 
 export const LoginPageView = ({ navigation }) => {
 
-    const imgBackgrd = {uri: 'https://images.unsplash.com/photo-1502252430442-aac78f397426?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'}
+    const loginProps = {
+        username: "",
+        password: ""
+    }
 
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const [loginParams, setLoginParams] = useState({loginProps})
+
+    const handleChangeText = (key, value) => {
+        setLoginParams( prevLoginParams => ({
+            ...prevLoginParams,
+            [key]: value
+        })
+        );
+    }
 
     const handlerLogin = () => {
         navigation.navigate("Main");
@@ -32,17 +45,17 @@ export const LoginPageView = ({ navigation }) => {
     return(
         <ImageBackground
         source={imgBackgrd}
-        style={styles.imgBackgrd}
+        style={GeneralStyles.imgBackgrd}
         >
-            <SafeAreaView style={styles.safeView}>
+            <SafeAreaView style={GeneralStyles.safeArea}>
 
                 <View style={styles.mainForm} >
 
                     <TextInput
                     style={styles.textInputField}
                     placeholder="username"
-                    value={username}
-                    onChangeText={setUsername}
+                    value={loginParams.username}
+                    onChangeText={text => handleChangeText("username", text)}
                     keyboardType='default'
                     />
 
@@ -53,8 +66,8 @@ export const LoginPageView = ({ navigation }) => {
                         style={{width: 160}}    // custom style param
                         placeholder="password"
                         secureTextEntry
-                        value={password}
-                        onChangeText={setPassword}
+                        value={loginParams.password}
+                        onChangeText={text => handleChangeText("password", text)}
                         keyboardType='default'
                         />
 
@@ -65,19 +78,19 @@ export const LoginPageView = ({ navigation }) => {
                     </View>
 
                     <TouchableOpacity 
-                    style={styles.asLoginBtn} 
+                    style={GeneralStyles.generalBtn} 
                     onPress={handlerLogin}
                     activeOpacity={3/4}
                     >
-                        <Text style={styles.textInLoginBtn}>Log In</Text>
+                        <Text style={GeneralStyles.textInGeneralBtn}>Log In</Text>
                     </TouchableOpacity> 
 
                     <TouchableOpacity 
-                    style={[styles.asLoginBtn]} 
+                    style={GeneralStyles.generalBtn} 
                     onPress={handlerSingUp}
                     activeOpacity={3/4}
                     >
-                        <Text style={styles.textInLoginBtn}>Sign Up</Text>
+                        <Text style={GeneralStyles.textInGeneralBtn}>Sign Up</Text>
                     </TouchableOpacity> 
 
                 </View>
@@ -89,14 +102,6 @@ export const LoginPageView = ({ navigation }) => {
 
 
 const styles = StyleSheet.create({
-    safeView: {
-        flex: 1
-    },
-    imgBackgrd: { 
-        resizeMode: 'cover',
-        height: '100%',
-        width: '100%'
-    },
     mainForm: {
         justifyContent: 'center',
         alignItems: 'center',
@@ -112,22 +117,9 @@ const styles = StyleSheet.create({
         padding: 10,
         margin: 3 
     },
-    asLoginBtn: {
-        width: 200,
-        backgroundColor: '#68876a',
-        alignContent: 'center',
-        borderRadius: 10,
-        padding: 7,
-        margin: 5
-    },
-    textInLoginBtn: {
-        textAlign: 'center',
-        fontSize: 18,
-        color: 'white'
-    },
     icon: {
         fontSize: 15,
         color: '#68876a',
         marginLeft: 5,
-      },
+    },
   });
