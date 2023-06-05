@@ -15,7 +15,7 @@ const imgBackgrd = {uri: 'https://images.unsplash.com/photo-1503435980610-a51f3d
 
 export const RecoverPassView = () => {
 
-    const [emailOrPhone, setEmailOrPhone] = useState("");
+    const [email, setEmail] = useState("");
 
     const [isBtnPress, setIsBrnPress] = useState(false);
     const [cooldownBtn, setCooldownBtn] = useState(45);
@@ -48,26 +48,6 @@ export const RecoverPassView = () => {
         }
     }, [isBtnPress, cooldownBtn])
 
-    useEffect(() => {
-        let timeout = null;
-      
-        if (isBtnPress) {
-          timeout = setTimeout(() => {
-            setCooldownBtn(prevTime => prevTime - 1);
-          }, 1000);
-        }
-      
-        if (cooldownBtn === 0) {
-          setIsBrnPress(false);
-          clearTimeout(timeout);
-        }
-      
-        return () => {
-          clearTimeout(timeout);
-        };
-      }, [isBtnPress, cooldownBtn]);
-      
-
     const handlerResetPassword = () => {
         // Reset pass processing
         Alert.alert("Reset password", 
@@ -86,10 +66,12 @@ export const RecoverPassView = () => {
 
                         <TextInput
                         style={styles.textInputField}
-                        placeholder="enter email or phone"
-                        value={emailOrPhone}
-                        onChangeText={setEmailOrPhone}
+                        placeholder="enter email"
+                        value={email}
+                        onChangeText={setEmail}
                         keyboardType='default'
+                        autoCorrect={false}
+                        autoCapitalize='none'
                         />
 
                         <TouchableOpacity 

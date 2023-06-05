@@ -10,16 +10,18 @@ import {
     SafeAreaView
 } from "react-native"
 import { GeneralStyles } from "../styles/GeneralStyles";
+import { regNerUser } from "../services/ApiManager";
 
-const imgBackgrd = {uri: 'https://images.unsplash.com/photo-1507041957456-9c397ce39c97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80'}
+
+const imgBackgrd = {uri: 'https://images.unsplash.com/photo-1507041957456-9c397ce39c97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80'};
 
 export const RegistrationView = ({navigation}) => {
 
     const registrProps = {
-        username: "",
+        name: "",
         password: "",
         confirmPassword: "",
-        phoneEmail: ""
+        email: ""
     };
 
     const [registrParams, setRegistrParams] = useState(registrProps);
@@ -35,19 +37,27 @@ export const RegistrationView = ({navigation}) => {
     const [allFieldsFilled, setAllFieldsFilled] = useState(false);
     const [equalsPasswords, setEqualsPasswords] = useState(true);
 
-    const handlerRegistrationBtn = () => {
-        // registration operations
+    const successRegistr = () => {
         Alert.alert("Success",
-        "Registration was successful, now you can log into your account.")
+            "Registration was successful, now you can log into your account.");
         navigation.navigate("Login");
+    }
+
+    const handlerRegistrationBtn = async () => {
+
+        await regNerUser(registrParams.email, registrParams.password, registrParams.name)
+            ? successRegistr 
+            : Alert.alert("Error",
+                "The entered data is not unique or incorrect.")
+
     }
 
     const checkFields = () => {
         if (
-            registrParams.username != "" 
+            registrParams.name != "" 
             && registrParams.password != "" 
             && registrParams.confirmPassword != "" 
-            && registrParams.phoneEmail != ""
+            && registrParams.email != ""
         ) {
             setAllFieldsFilled(true)
         } else setAllFieldsFilled(false)
@@ -70,18 +80,22 @@ export const RegistrationView = ({navigation}) => {
 
                     <TextInput
                     style={styles.textInputField}
-                    placeholder="username"
-                    value={registrParams.username}
-                    onChangeText={text => handleChangeText("username", text)}
+                    placeholder="name"
+                    value={registrParams.name}
+                    onChangeText={text => handleChangeText("name", text)}
                     keyboardType='default'
+                    autoCorrect={false}
+                    autoCapitalize='none'
                     />
 
                     <TextInput
                     style={styles.textInputField}
-                    placeholder="email or phone"
-                    value={registrParams.phoneEmail}
-                    onChangeText={text => handleChangeText("phoneEmail", text)}
-                    keyboardType='default'
+                    placeholder="email"
+                    value={registrParams.email}
+                    onChangeText={text => handleChangeText("email", text)}
+                    keyboardType='email-address'
+                    autoCorrect={false}
+                    autoCapitalize='none'
                     />
 
                     <TextInput
@@ -90,6 +104,8 @@ export const RegistrationView = ({navigation}) => {
                     value={registrParams.password}
                     onChangeText={text => handleChangeText("password", text)}
                     keyboardType='default'
+                    autoCorrect={false}
+                    autoCapitalize='none'
                     />
 
                     <TextInput
@@ -99,6 +115,8 @@ export const RegistrationView = ({navigation}) => {
                     value={registrParams.confirmPassword}
                     onChangeText={text => handleChangeText("confirmPassword", text)}
                     keyboardType='default'
+                    autoCorrect={false}
+                    autoCapitalize='none'
                     />
                    
                     <TouchableOpacity 
