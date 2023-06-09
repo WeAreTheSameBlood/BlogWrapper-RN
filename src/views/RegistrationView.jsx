@@ -74,7 +74,6 @@ export const RegistrationView = ({navigation}) => {
         source={imgBackgrd}
         style={GeneralStyles.imgBackgrd}
         >
-            <SafeAreaView style={GeneralStyles.safeArea}>
 
                 <View style={styles.mainForm} >
 
@@ -138,7 +137,6 @@ export const RegistrationView = ({navigation}) => {
                     </TouchableOpacity>
                 </View>
 
-            </SafeAreaView>
         </ImageBackground>
     )
 }

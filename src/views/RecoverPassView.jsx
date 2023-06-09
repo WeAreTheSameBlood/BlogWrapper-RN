@@ -59,7 +59,6 @@ export const RecoverPassView = () => {
         source={imgBackgrd}
         style={GeneralStyles.imgBackgrd}
         >
-             <SafeAreaView style={GeneralStyles.safeArea}>
                 <View style={{flex:1}}>
 
                     <View style={styles.mainForm} >
@@ -90,7 +89,6 @@ export const RecoverPassView = () => {
                     
                 </View>
 
-             </SafeAreaView>
         </ImageBackground>
     )
 }

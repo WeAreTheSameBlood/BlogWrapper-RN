@@ -15,7 +15,7 @@ export const Navigation = () => {
             <Stack.Navigator>
                 <Stack.Screen name="Login" component={LoginPageView}/>
                 <Stack.Screen name="Registration" component={RegistrationView}/>
-                <Stack.Screen name="Recover Password" component={RecoverPassView}/>
+                <Stack.Screen name="Recover Password" component={RecoverPassView}/> 
                 <Stack.Screen name="Main" component={MainPageView}/>
              </Stack.Navigator>
         </NavigationContainer>

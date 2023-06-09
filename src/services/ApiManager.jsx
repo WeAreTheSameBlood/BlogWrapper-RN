@@ -1,6 +1,5 @@
 import axios from "axios";
 
-// const API_BASE_URL = 'http://test-blog-api.ficuslife.com/api/v1';
 const API_BASE_URL = 'http://51.158.179.21/api/v1';
 
 axios.defaults.baseURL = API_BASE_URL;
@@ -12,6 +11,7 @@ axios.defaults.headers.post['Accept'] = 'application/json'
 // export const [ authToken, setAuthToken ] = useState();
 
 export let authToken = null;
+export let user = null;
 
 export const regNerUser = async (personEmail, personPassword, personName) => {
 
@@ -61,3 +61,24 @@ export const getToken = async (userEmail, userPassword) => {
       return false;
     }
   };
+
+export const getUserByToken = async () => {
+
+  const url = '/auth/user';
+
+  const data = {
+    email: userEmail,
+    password: userPassword,
+  };
+
+    try {
+      const response = await axios.get( url, data);
+
+      return true;
+    } catch (error) {
+      console.error('<<< Error getting token:', error);
+
+      return false;
+    }
+
+}

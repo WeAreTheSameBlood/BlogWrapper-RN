@@ -7,6 +7,8 @@
 
 import React from 'react';
 import { Navigation } from './src/Navigation';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { GeneralStyles } from './src/styles/GeneralStyles';
 
 
 
@@ -14,7 +16,9 @@ import { Navigation } from './src/Navigation';
 function App(): JSX.Element {
 
   return (
-        <Navigation />
+    <SafeAreaProvider style={GeneralStyles.safeArea}>
+      <Navigation />
+    </SafeAreaProvider>
   );
 }
 

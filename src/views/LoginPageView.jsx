@@ -52,7 +52,7 @@ export const LoginPageView = ({ navigation }) => {
         source={imgBackgrd}
         style={GeneralStyles.imgBackgrd}
         >
-            <SafeAreaView style={GeneralStyles.safeArea}>
+            {/* <SafeAreaView style={GeneralStyles.safeArea}> */}
 
                 <View style={styles.mainForm} >
 
@@ -104,7 +104,7 @@ export const LoginPageView = ({ navigation }) => {
 
                 </View>
 
-            </SafeAreaView>
+            {/* </SafeAreaView> */}
         </ImageBackground>
     )
 };
