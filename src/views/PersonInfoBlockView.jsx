@@ -5,13 +5,13 @@ import {
 } from "react-native"
 import { HStack} from "./auxiliary"
 
-export const PersonInfoBlockView = () => {
+export const PersonInfoBlockView = ({nameOfField, textInField}) => {
 
     return(
     <View style={styles.sectionStyle}>
         <HStack>
-            <Text style={styles.textInSections}>Name: </Text>
-            <Text style={[styles.textInSections]}>Andrii A O</Text>
+            <Text style={styles.textInSections}>{nameOfField}: </Text>
+            <Text style={[styles.textInSections]}>{textInField}</Text>
         </HStack>
     </View>
     )

@@ -1,5 +1,4 @@
 import axios from "axios";
-import React, {useState} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const API_BASE_URL = 'http://51.158.179.21/api/v1';

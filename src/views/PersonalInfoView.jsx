@@ -14,6 +14,7 @@ import {
 import { HStack, Spacer, VStack} from "./auxiliary"
 import { GeneralStyles } from "../styles/GeneralStyles";
 import { getUserByToken, removeToken, user } from "../services/ApiManager";
+import { PersonInfoBlockView } from "./PersonInfoBlockView";
 
 const imgAvatar = {uri: 'https://upload.wikimedia.org/wikipedia/ru/thumb/9/94/Гигачад.jpg/640px-Гигачад.jpg'}
 
@@ -49,62 +50,26 @@ export const PersonalInfoView = ({ navigation }) => {
     
         <View>
 
-            <HStack>
+             <HStack>
 
-                <VStack>
-                    <Text style={styles.textHeader}>Personal info</Text>
-                    <Text style={[styles.textHeader, {fontSize: 16}]}>Last update: 30.02.2024</Text>
-                </VStack>
+                 <VStack>
+                     <Text style={styles.textHeader}>Personal info</Text>
+                     <Text style={[styles.textHeader, {fontSize: 16}]}>Last update: 30.02.2024</Text>
+                 </VStack>
 
-                <Spacer/>
-                <Image source={imgAvatar} style={styles.image} />
+                 <Spacer/>
+                 <Image source={imgAvatar} style={styles.image} />
 
-            </HStack>
+             </HStack>
+        
             
-
-            {/* <PersonalInfoView/> */}  {/* PersonalInfoView not workong */}
-
-            
-
-            <View style={styles.sectionStyle}>
-                <HStack>
-                    <Text style={styles.textInSections}>Name: </Text>
-                    <Text style={styles.textInSections}>{user.name}</Text>
-                </HStack>
-            </View>
-            <View style={styles.sectionStyle}>
-                <HStack>
-                    <Text style={styles.textInSections}>Date created: </Text>
-                    <Text style={styles.textInSections}>{user.dateCreated.split('T')[0]}</Text>
-                </HStack>
-            </View>
-            <View style={styles.sectionStyle}>
-                <HStack>
-                    <Text style={styles.textInSections}>Email: </Text>
-                    <Text style={styles.textInSections}>{user.email.slice(0, 5)}...{user.email.slice(-10)}</Text>
-                </HStack>
-            </View>
-            <View style={styles.sectionStyle}>
-                <HStack>
-                    <Text style={styles.textInSections}>Profession: </Text>
-                    <Text style={styles.textInSections}>{user.profession}</Text>
-                </HStack>
-            </View>
-            <View style={styles.sectionStyle}>
-                <HStack>
-                    <Text style={styles.textInSections}>Skills: </Text>
-                    <Text style={styles.textInSections}>{user.skills}</Text>
-                </HStack>                    
-            </View>
-            <View style={styles.sectionStyle}>
-                <HStack>
-                    <Text style={styles.textInSections}>Extra details: </Text>
-                    <Text style={styles.textInSections}>{user.extra_details}</Text>
-                </HStack>                    
-            </View>
-
-                
-
+             <PersonInfoBlockView nameOfField='Name' textInField={user.name}/>
+             <PersonInfoBlockView nameOfField='Date created' textInField={user.dateCreated}/>
+             <PersonInfoBlockView nameOfField='Email' textInField={user.email}/>
+             <PersonInfoBlockView nameOfField='Profession' textInField={user.profession}/>
+             <PersonInfoBlockView nameOfField='Skills' textInField={user.skills}/>
+             <PersonInfoBlockView nameOfField='Extra details' textInField={user.extra_details}/>
+        
             <View style={[{alignItems: 'center'}]}>
                 <TouchableOpacity 
                 style={GeneralStyles.generalBtn}
@@ -112,7 +77,7 @@ export const PersonalInfoView = ({ navigation }) => {
                         <Text style={GeneralStyles.textInGeneralBtn}>LOGOUT</Text>
                 </TouchableOpacity>
             </View>
-            
+
         </View>
     )
 }
