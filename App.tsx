@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import { Navigation } from './src/Navigation';
+import { Navigation } from './src/services/Navigation';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { GeneralStyles } from './src/styles/GeneralStyles';
 

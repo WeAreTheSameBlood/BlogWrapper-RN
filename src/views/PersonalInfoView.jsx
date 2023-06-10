@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { 
     View, 
     Text,
@@ -13,19 +13,41 @@ import {
 } from "react-native"
 import { HStack, Spacer, VStack} from "./auxiliary"
 import { GeneralStyles } from "../styles/GeneralStyles";
+import { getUserByToken, removeToken, user } from "../services/ApiManager";
 
 const imgAvatar = {uri: 'https://upload.wikimedia.org/wikipedia/ru/thumb/9/94/Гигачад.jpg/640px-Гигачад.jpg'}
 
-export const PersonalInfoView =() => {
+const userModel = {
+    dateCreated: '',
+    details: '',
+    email: '',
+    extra_details: '',
+    name: '',
+    profession: '',
+    skills: ''
+}
 
-    const [name, setName] = useState("Hybchenko A.O.")
-    const [dateOFBirth, setDateOFBirth] = useState("15.06.1998")
-    const [country, setCountry] = useState("Ukraine")
-    const [email, setEmail] = useState("hlybchenko.andrii@gmail.com")
+export const PersonalInfoView = ({ navigation }) => {
+
+    const [user, setUser] = useState(userModel)
+
+    useEffect( () => {
+        async function fetchData() {
+        setUser( await getUserByToken())
+    }
+    fetchData();
+    console.log("<<<<->>>>> " + user.dateCreated);
+
+    }, [])
+
+    const logout = () => {
+        removeToken();
+        navigation.navigate("Login")
+    }
 
     return(
     
-        <VStack>
+        <View>
 
             <HStack>
 
@@ -38,32 +60,60 @@ export const PersonalInfoView =() => {
                 <Image source={imgAvatar} style={styles.image} />
 
             </HStack>
-
-            <VStack>
-                <View style={styles.sectionStyle}>
-
-                    <HStack>
-                        <Text style={styles.textInSections}>Name: </Text>
-                        <Text style={[styles.textInSections]}>{name}</Text>
-                    </HStack>
-                    <HStack>
-                        <Text style={styles.textInSections}>Date of Birth: </Text>
-                        <Text style={styles.textInSections}>{dateOFBirth}</Text>
-                    </HStack>
-                    <HStack>
-                        <Text style={styles.textInSections}>Country: </Text>
-                        <Text style={styles.textInSections}>{country}</Text>
-                    </HStack>
-                    <HStack>
-                        <Text style={styles.textInSections}>Email: </Text>
-                        <Text style={styles.textInSections}>{email.slice(0, 5)}...{email.slice(-10)}</Text>
-                    </HStack>
-                    
-                </View>
-                
-            </VStack>
             
-        </VStack>
+
+            {/* <PersonalInfoView/> */}  {/* PersonalInfoView not workong */}
+
+            
+
+            <View style={styles.sectionStyle}>
+                <HStack>
+                    <Text style={styles.textInSections}>Name: </Text>
+                    <Text style={styles.textInSections}>{user.name}</Text>
+                </HStack>
+            </View>
+            <View style={styles.sectionStyle}>
+                <HStack>
+                    <Text style={styles.textInSections}>Date created: </Text>
+                    <Text style={styles.textInSections}>{user.dateCreated.split('T')[0]}</Text>
+                </HStack>
+            </View>
+            <View style={styles.sectionStyle}>
+                <HStack>
+                    <Text style={styles.textInSections}>Email: </Text>
+                    <Text style={styles.textInSections}>{user.email.slice(0, 5)}...{user.email.slice(-10)}</Text>
+                </HStack>
+            </View>
+            <View style={styles.sectionStyle}>
+                <HStack>
+                    <Text style={styles.textInSections}>Profession: </Text>
+                    <Text style={styles.textInSections}>{user.profession}</Text>
+                </HStack>
+            </View>
+            <View style={styles.sectionStyle}>
+                <HStack>
+                    <Text style={styles.textInSections}>Skills: </Text>
+                    <Text style={styles.textInSections}>{user.skills}</Text>
+                </HStack>                    
+            </View>
+            <View style={styles.sectionStyle}>
+                <HStack>
+                    <Text style={styles.textInSections}>Extra details: </Text>
+                    <Text style={styles.textInSections}>{user.extra_details}</Text>
+                </HStack>                    
+            </View>
+
+                
+
+            <View style={[{alignItems: 'center'}]}>
+                <TouchableOpacity 
+                style={GeneralStyles.generalBtn}
+                onPress={logout}>
+                        <Text style={GeneralStyles.textInGeneralBtn}>LOGOUT</Text>
+                </TouchableOpacity>
+            </View>
+            
+        </View>
     )
 }
 
@@ -91,7 +141,7 @@ const styles = StyleSheet.create({
     sectionStyle: {
         backgroundColor: 'white',
         padding: 5,
-        margin: 5,
+        margin: 3,
         borderRadius: 10,
         opacity: 4/5
     }

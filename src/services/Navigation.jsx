@@ -1,10 +1,10 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
-import { LoginPageView } from './views/LoginPageView';
-import { RecoverPassView } from './views/RecoverPassView';
-import { MainPageView } from './views/MainPageView';
-import { RegistrationView } from './views/RegistrationView';
+import { LoginPageView } from '../views/LoginPageView';
+import { RecoverPassView } from '../views/RecoverPassView';
+import { MainPageView } from '../views/MainPageView';
+import { RegistrationView } from '../views/RegistrationView';
 
 
 const Stack = createNativeStackNavigator();

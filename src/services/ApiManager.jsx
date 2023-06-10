@@ -1,4 +1,6 @@
 import axios from "axios";
+import React, {useState} from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const API_BASE_URL = 'http://51.158.179.21/api/v1';
 
@@ -8,10 +10,14 @@ axios.defaults.headers.post['Content-Type'] = 'application/json'
 axios.defaults.headers.post['Accept'] = 'application/json'
 
 // Authentication token
-// export const [ authToken, setAuthToken ] = useState();
-
-export let authToken = null;
-export let user = null;
+const handleTokenReceived = async (receivedToken) => {
+  try {
+    await AsyncStorage.setItem('token', receivedToken);
+    console.log('Token saved successfully');
+  } catch (error) {
+    console.error('Error saving token:', error);
+  }
+};
 
 export const regNerUser = async (personEmail, personPassword, personName) => {
 
@@ -51,8 +57,8 @@ export const getToken = async (userEmail, userPassword) => {
     try {
       const response = await axios.post( url, data);
     
-      authToken = response.data.token;
-      console.log('>>> Token received:', authToken);
+      handleTokenReceived(response.data.token)
+      console.log('>>> Token received:', await AsyncStorage.getItem('token'));
 
       return true;
     } catch (error) {
@@ -62,23 +68,47 @@ export const getToken = async (userEmail, userPassword) => {
     }
   };
 
+export const checkToken = async () => {
+  try {
+    const token = await AsyncStorage.getItem('token');
+    if (token !== null) {
+      console.log('Token retrieved successfully:', token);
+      return true;
+    }
+  } catch (error) {
+    console.error('Error retrieving token:', error);
+    return false;
+  }
+};
+
+export const removeToken = async () => {
+  try {
+    await AsyncStorage.removeItem('token');
+    console.log('Token removed successfully');
+  } catch (error) {
+    console.error('Error removing token:', error);
+  }
+};
+  
 export const getUserByToken = async () => {
 
   const url = '/auth/user';
 
-  const data = {
-    email: userEmail,
-    password: userPassword,
-  };
-
     try {
-      const response = await axios.get( url, data);
+      const response = await axios.get( url, {
+        headers: {
+          Accept: 'application/',
+          Authorization: `Bearer ${await AsyncStorage.getItem('token')}`,
+        }
+      });
 
-      return true;
+      // console.log(response.data);
+
+      return response.data;
     } catch (error) {
-      console.error('<<< Error getting token:', error);
+      console.error('<<< Error getting user:', error);
 
-      return false;
+      return null;
     }
 
 }

@@ -1,21 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { 
     View, 
     Text, 
     StyleSheet, 
     TextInput, 
-    Button,
     TouchableOpacity, 
     ImageBackground, 
-    SafeAreaView,
     Alert
 } from "react-native"
 import { GeneralStyles } from "../styles/GeneralStyles";
-import { authToken, getToken } from "../services/ApiManager";
+import { checkToken, getToken } from "../services/ApiManager";
 
 const imgBackgrd = {uri: 'https://images.unsplash.com/photo-1502252430442-aac78f397426?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'}
 
 export const LoginPageView = ({ navigation }) => {
+
+    // const authByToken = async () => {
+    //     if (await checkToken()) { navigation.navigate("Main") }
+    // }
+
+    useEffect(() => {
+        function authByToken() {
+            if (checkToken) { navigation.navigate("Main") }
+        };
+        authByToken;
+    }, []);
 
     const loginProps = {
         email: "",
@@ -52,59 +61,56 @@ export const LoginPageView = ({ navigation }) => {
         source={imgBackgrd}
         style={GeneralStyles.imgBackgrd}
         >
-            {/* <SafeAreaView style={GeneralStyles.safeArea}> */}
+            <View style={styles.mainForm} >
 
-                <View style={styles.mainForm} >
+                <TextInput
+                style={styles.textInputField}
+                placeholder="email"
+                value={loginParams.username}
+                onChangeText={text => handleChangeText("email", text)}
+                keyboardType='email-address'
+                autoCorrect={false}
+                autoCapitalize='none'
+                />
+
+                <View 
+                style={[styles.textInputField, {flexDirection: 'row'}]}>
 
                     <TextInput
-                    style={styles.textInputField}
-                    placeholder="email"
-                    value={loginParams.username}
-                    onChangeText={text => handleChangeText("email", text)}
-                    keyboardType='email-address'
+                    style={{width: 160}}    // custom style param
+                    placeholder="password"
+                    secureTextEntry
+                    value={loginParams.password}
+                    onChangeText={text => handleChangeText("password", text)}
+                    keyboardType='default'
                     autoCorrect={false}
                     autoCapitalize='none'
                     />
 
-                    <View 
-                    style={[styles.textInputField, {flexDirection: 'row'}]}>
-
-                        <TextInput
-                        style={{width: 160}}    // custom style param
-                        placeholder="password"
-                        secureTextEntry
-                        value={loginParams.password}
-                        onChangeText={text => handleChangeText("password", text)}
-                        keyboardType='default'
-                        autoCorrect={false}
-                        autoCapitalize='none'
-                        />
-
-                        <TouchableOpacity onPress={handlerRecoverPassBtn}>
-                            <Text style={styles.icon}>?</Text>
-                        </TouchableOpacity>
-
-                    </View>
-
-                    <TouchableOpacity 
-                    style={GeneralStyles.generalBtn} 
-                    onPress={handlerLogin}
-                    activeOpacity={3/4}
-                    >
-                        <Text style={GeneralStyles.textInGeneralBtn}>Log In</Text>
-                    </TouchableOpacity> 
-
-                    <TouchableOpacity 
-                    style={GeneralStyles.generalBtn} 
-                    onPress={handlerSingUp}
-                    activeOpacity={3/4}
-                    >
-                        <Text style={GeneralStyles.textInGeneralBtn}>Sign Up</Text>
-                    </TouchableOpacity> 
+                    <TouchableOpacity onPress={handlerRecoverPassBtn}>
+                        <Text style={styles.icon}>?</Text>
+                    </TouchableOpacity>
 
                 </View>
 
-            {/* </SafeAreaView> */}
+                <TouchableOpacity 
+                style={GeneralStyles.generalBtn} 
+                onPress={handlerLogin}
+                activeOpacity={3/4}
+                >
+                    <Text style={GeneralStyles.textInGeneralBtn}>Log In</Text>
+                </TouchableOpacity> 
+
+                <TouchableOpacity 
+                style={GeneralStyles.generalBtn} 
+                onPress={handlerSingUp}
+                activeOpacity={3/4}
+                >
+                    <Text style={GeneralStyles.textInGeneralBtn}>Sign Up</Text>
+                </TouchableOpacity> 
+
+            </View>
+
         </ImageBackground>
     )
 };

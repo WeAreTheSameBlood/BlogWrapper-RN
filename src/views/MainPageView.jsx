@@ -19,7 +19,7 @@ import { UserPostsView } from "./UserPostsView";
 
 const imgBackgrd = {uri: 'https://images.unsplash.com/photo-1508193638397-1c4234db14d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80'}
 
-export const MainPageView =() => {
+export const MainPageView = ({ navigation }) => {
 
     const [activeTab, setActiveTab] = useState(0);
 
@@ -41,7 +41,7 @@ export const MainPageView =() => {
                     ? <AllPostsView/> 
                     : (activeTab == 1 
                         ? <UserPostsView/>
-                        : <PersonalInfoView/>)}
+                        : <PersonalInfoView navigation={navigation}/>)}
 
             </View>
 
