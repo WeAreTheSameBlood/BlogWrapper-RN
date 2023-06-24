@@ -96,12 +96,12 @@ export const getUserByToken = async () => {
     try {
       const response = await axios.get( url, {
         headers: {
-          Accept: 'application/',
+          Accept: 'application/json',
           Authorization: `Bearer ${await AsyncStorage.getItem('token')}`,
         }
       });
 
-      // console.log(response.data);
+      console.log(response.data);
 
       return response.data;
     } catch (error) {
@@ -110,4 +110,23 @@ export const getUserByToken = async () => {
       return null;
     }
 
+}
+
+export const getAllPosts = async () => {
+  const url = '/posts';
+  try {
+    const response = await axios.get( url, {
+      headers: {
+        Accept: 'application/json',
+      }
+    });
+
+    // console.log(response.data);
+
+    return response.data;
+  } catch (error) {
+    console.error('<<< Error getting posts:', error);
+
+    return null;
+  }
 }

@@ -64,7 +64,7 @@ export const PersonalInfoView = ({ navigation }) => {
         
             
              <PersonInfoBlockView nameOfField='Name' textInField={user.name}/>
-             <PersonInfoBlockView nameOfField='Date created' textInField={user.dateCreated}/>
+             <PersonInfoBlockView nameOfField='Date created' textInField={user.dateCreated.toString().split('T')[0]}/>
              <PersonInfoBlockView nameOfField='Email' textInField={user.email}/>
              <PersonInfoBlockView nameOfField='Profession' textInField={user.profession}/>
              <PersonInfoBlockView nameOfField='Skills' textInField={user.skills}/>
